@@ -26,7 +26,7 @@ public class JaBench {
     public static void main(String[] args) throws InterruptedException {
         //System.out.println(INIT_PRIMES.length);
 
-        final int mc = 11;
+        final int mc = 7;
 
         for (int tc = 1; tc < 33; tc *= 2) {
             System.out.print(tc);
