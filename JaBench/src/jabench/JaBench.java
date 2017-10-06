@@ -73,22 +73,23 @@ public class JaBench {
         final int tstep = i;
         for (int j = 0; j < threads.length; j++) {
             final int start = j;
-            threads[j] = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    for (int i = il + start; i < result.length; i += tstep) {
-                        for (int k = 0; k < il; k++) {
-                            final int rk = result[k];
-                            final int ri = result[i];
-                            final int dv = ri / rk;
-                            final int mlp = dv * rk;
-                            if (rk != 1 && mlp == ri) {
-                                result[i] = 1;
-                            }
-                        }
-                    }
-                }
-            });
+//            threads[j] = new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    for (int i = il + start; i < result.length; i += tstep) {
+//                        for (int k = 0; k < il; k++) {
+//                            final int rk = result[k];
+//                            final int ri = result[i];
+//                            final int dv = ri / rk;
+//                            final int mlp = dv * rk;
+//                            if (rk != 1 && mlp == ri) {
+//                                result[i] = 1;
+//                            }
+//                        }
+//                    }
+//                }
+//            });
+            threads[j] = new FilterThread(result, il, start, tstep);
         }
         for (Thread t : threads) {
             t.start();
