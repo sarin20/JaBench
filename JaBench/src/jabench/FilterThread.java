@@ -38,16 +38,20 @@ public class FilterThread extends Thread {
         long st = System.nanoTime();
         
         for (int i = il + start; i < result.length; i += tstep) {
-            for (int k = 0; k < il; k++) {
-                final int rk = result[k];
-                final int ri = result[i];
-                final int dv = ri / rk;
-//                System.out.println(ri + " / " + rk);
-                final int mlp = dv * rk;
-                dc++;
-                if (rk != 1 && mlp == ri) {
-                    result[i] = 1;
-                    break;
+            final int ri = result[i];
+            if (ri > 1) {
+                for (int k = 0; k < il; k++) {
+                    final int rk = result[k];
+                    if (rk != 1) {
+                        final int dv = ri / rk;
+//                        System.out.println(ri + " / " + rk);
+                        final int mlp = dv * rk;
+                        dc++;
+                        if (mlp == ri) {
+                            result[i] = 1;
+                            break;
+                        }
+                    }
                 }
             }
         }
